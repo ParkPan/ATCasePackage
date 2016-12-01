@@ -1,0 +1,92 @@
+*** Settings ***
+Library           ../../lib/platfrom/datacollect/Action/CopyFileToLocal.py
+Library           ../../lib/platfrom/datacollect/Action/File2DictList.py
+Library           ../../lib/platfrom/datacollect/Action/Comparefile.py
+Library           ../../lib/platfrom/datacollect/SendReport.py
+Variables         ../../lib/platfrom/datacollect/GlobalVars/SDK.py
+Variables         ../../lib/platfrom/datacollect/GlobalVars/IDC.py
+
+*** Test Cases ***
+idc_peer_connection_report
+    [Tags]    platform_collect_idc
+    sendreport    ${idc_peer_connection_report['name']}
+    remotecopyfile    ${idc_peer_connection_report['name']}
+    ${result}    comparefilebyitslist    ${idc_peer_connection_report['name']}
+    Should Be True    ${result}
+
+sdk_live_delay_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_live_delay_version_1['name']}
+    remotecopyfile    ${sdk_live_delay_version_1['name']}
+    ${result}    comparefilebycotainabtimelist    ${sdk_live_delay_version_1['name']}
+    Should Be True    ${result}
+
+sdk_offering_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_offering_version_1['name']}
+    remotecopyfile    ${sdk_offering_version_1['name']}
+    ${result}    comparefilebycontaintypelist    ${sdk_offering_version_1['name']}
+    Should Be True    ${result}
+
+sdk_push_state_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_push_state_version_1['name']}
+    remotecopyfile    ${sdk_push_state_version_1['name']}
+    ${result}    comparefilebycontaintypelist    ${sdk_push_state_version_1['name']}
+    Should Be True    ${result}
+
+sdk_qos_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_qos_version_1['name']}
+    remotecopyfile    ${sdk_qos_version_1['name']}
+    ${result}    comparefilebycontaintypelist    ${sdk_qos_version_1['name']}
+    Should Be True    ${result}
+
+sdk_vf_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_vf_version_1['name']}
+    remotecopyfile    ${sdk_vf_version_1['name']}
+    ${result}    comparefilebycontaindurationlist    ${sdk_vf_version_1['name']}
+    Should Be True    ${result}
+
+sdk_vv_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_vv_version_1['name']}
+    remotecopyfile    ${sdk_vv_version_1['name']}
+    ${result}    comparefilebycontaintypelist    ${sdk_vv_version_1['name']}
+    Should Be True    ${result}
+
+sdk_fod_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_fod_version_1['name']}
+    remotecopyfile    ${sdk_fod_version_1['name']}
+    ${result}    comparefilebycontaintypelist    ${sdk_fod_version_1['name']}
+    Should Be True    ${result}
+
+sdk_flow_download_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_flow_download_version_1['name']}
+    remotecopyfile    ${sdk_flow_download_version_1['name']}
+    ${result}    comparefilebycontaindownloadlist    ${sdk_flow_download_version_1['name']}
+    Should Be True    ${result}
+
+sdk_flow_upload_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_flow_upload_version_1['name']}
+    remotecopyfile    ${sdk_flow_upload_version_1['name']}
+    ${result}    comparefilebycontaindownloadlist    ${sdk_flow_upload_version_1['name']}
+    Should Be True    ${result}
+
+sdk_exception_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_exception_version_1['name']}
+    remotecopyfile    ${sdk_exception_version_1['name']}
+    ${result}    comparefilebyexceptionlist    ${sdk_exception_version_1['name']}
+    Should Be True    ${result}
+
+sdk_performance_vod_version_1
+    [Tags]    platform_collect_sdk
+    sendreport    ${sdk_performance_vod_version_1['name']}
+    remotecopyfile    ${sdk_performance_vod_version_1['name']}
+    ${result}    comparefilebyperformancelist    ${sdk_performance_vod_version_1['name']}
+    Should Be True    ${result}

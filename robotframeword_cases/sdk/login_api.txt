@@ -1,0 +1,45 @@
+*** Settings ***
+Library           Collections
+Library           HttpLibrary.HTTP
+Library           ../../../lib/sdk/pcap_controller.py
+Library           ../../../lib/sdk/pcap_http_checker.py
+Library           ../../../lib/sdk/sdk_controller.py
+Variables         ../../../lib/sdk/const.py
+Library           ../../../lib/sdk/tcpdump_filter.py
+Library           ../../../lib/sdk/sdk_request_check.py
+
+*** Test Cases ***
+SdkLoginRequest
+    [Documentation]    Target：Validate sdk send login request
+    [Tags]    bk_sdk_api
+    Deploy Sdk    ${REMOTE_SDK_IP}
+    Stop Sdk
+    Stop Capture
+    Start Capture
+    Start Sdk
+    Sleep    10
+    Stop Sdk
+    Stop Capture
+    Sleep    1
+    Transfer Pcap File
+    ${http_requests}    Parse Http Requests    ${LOCAL_PCAP}
+    Verify Login Request    ${http_requests}    ${LOGIN_REQUEST_PATTERN}
+
+SdkApiGroupCheck
+    [Tags]    sdk_api
+    [Timeout]
+    ${timeplay}    Convert to Integer    630
+    ${timend}    Convert to Integer    330
+    ${timeout}    Convert to Integer    960
+    Deploy Sdk    ${REMOTE_SDK_IP}
+    Transfer Exec Files
+    Stop Sdk
+    Start Sdk Check    ${timeout}
+    Start Sdk
+    Sleep    ${timeplay}
+    Start Sdk Live Flv
+    Sleep    ${timend}
+    Transfer Check Log File
+    Stop Sdk
+    ${reslut}    Verify Log File Result    ${LOCAL_LOG_FILE}
+    Should Be True    ${reslut}
